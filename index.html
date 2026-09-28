@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FindYourHabits — Habit & Routine Tracker</title>
+  <meta name="description" content="Track habits and routines with flexible targets, streaks, progress views and a 12-month consistency heatmap. Works offline and keeps your data on your device." />
+
+  <link rel="canonical" href="https://findyourhabits.com/" />
+  <meta name="robots" content="index,follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="FindYourHabits" />
+  <meta property="og:title" content="FindYourHabits — Habit & Routine Tracker" />
+  <meta property="og:description" content="Track habits, flexible routines and long-term consistency in one simple grid." />
+  <meta property="og:url" content="https://findyourhabits.com/" />
+  <meta property="og:image" content="https://findyourhabits.com/social-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="FindYourHabits habit tracker with flexible targets and consistency heatmap" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="FindYourHabits — Habit & Routine Tracker" />
+  <meta name="twitter:description" content="Track habits, flexible routines and long-term consistency in one simple grid." />
+  <meta name="twitter:image" content="https://findyourhabits.com/social-card.png" />
+  <meta name="theme-color" content="#6f52ed" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#202329" media="(prefers-color-scheme: dark)" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="FindYourHabits" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="icons/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- FindYourHabits v1.8.7 -->
+  <main class="app-shell">
+    <section class="panel header-habits-panel top-dashboard-panel">
+      <div class="header-panel compact-brand-row">
+        <div class="brand-copy">
+          <h1>FindYourHabits</h1>
+          <p>Track the routines that matter, set flexible targets, and build consistency over time.</p>
+        </div>
+        <div class="header-actions">
+          <button id="shareBtn" class="button secondary icon-button" type="button" aria-label="Share FindYourHabits" title="Share">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12 16V4"></path>
+              <path d="M8 8l4-4 4 4"></path>
+              <path d="M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"></path>
+            </svg>
+          </button>
+          <button id="themeToggle" class="button secondary" type="button" aria-label="Switch to dark mode" title="Dark mode"></button>
+        </div>
+      </div>
+
+      <div class="habits-divider"></div>
+
+      <div class="dashboard-utility-row">
+        <div class="habits-compact-block">
+          <div class="habits-compact-copy">
+            <h2>Your habits</h2>
+            <p>Set your routines and targets.</p>
+          </div>
+          <div class="habit-heading-actions">
+            <div id="habitCounter" class="counter"></div>
+            <button id="editHabitsBtn" class="button primary compact-button" type="button" aria-expanded="false">Manage habits</button>
+          </div>
+        </div>
+
+        <div class="tracker-controls-inline" aria-label="Tracker controls">
+          <div class="view-toggle" aria-label="View toggle">
+            <button id="monthViewBtn" type="button" class="active">Month</button>
+            <button id="weekViewBtn" type="button">Week</button>
+          </div>
+
+          <div class="period-controls">
+            <button id="prevBtn" class="button square" type="button" aria-label="Previous period">‹</button>
+            <div id="periodTitle" class="period-title"></div>
+            <button id="nextBtn" class="button square" type="button" aria-label="Next period">›</button>
+          </div>
+
+          <button id="todayBtn" class="button secondary today-inline" type="button">Today</button>
+        </div>
+      </div>
+
+      <div id="starterHint" class="starter-hint" hidden>Starter examples are already set up. Use <strong>Manage habits</strong> to rename them, change targets or add your own.</div>
+
+      <div id="habitEditorArea" class="habit-editor-area" hidden>
+        <div id="habitEditorList" class="habit-editor-list"></div>
+
+        <form id="habitForm" class="add-habit-form">
+          <label class="sr-only" for="habitInput">New habit</label>
+          <input id="habitInput" maxlength="22" placeholder="Add another habit, e.g. Read" />
+          <button class="button primary" type="submit">＋ Add habit</button>
+        </form>
+        <div id="formMessage" class="form-message" aria-live="polite"></div>
+
+        <div id="archivedHabitsArea" class="archived-habits-area" hidden>
+          <div class="archived-heading-row">
+            <div>
+              <h3>Archived habits</h3>
+              <p>Archived habits are removed from the tracker, but their previous check-ins are kept.</p>
+            </div>
+          </div>
+          <div id="archivedHabitList" class="archived-habit-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="tracker-wrap">
+        <table aria-label="Routine tracker grid">
+          <thead>
+            <tr id="tableHead"></tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+      <p class="helper-text">Today is highlighted; future dates are locked. Weekly habits are tracked against their target rather than individual missed days.</p>
+    </section>
+
+    <section class="panel heatmap-panel" aria-labelledby="heatmapTitle">
+      <div class="heatmap-heading-row">
+        <div>
+          <h2 id="heatmapTitle">Consistency heatmap</h2>
+          <p>See your consistency across the last 12 months. Tap a day for details.</p>
+        </div>
+        <label class="heatmap-filter-label">
+          <span class="sr-only">Heatmap habit</span>
+          <select id="heatmapHabitSelect" aria-label="Choose habit for heatmap"></select>
+        </label>
+      </div>
+
+      <div class="heatmap-scroll" tabindex="0" aria-label="12 month consistency heatmap">
+        <div id="heatmapGrid" class="heatmap-grid"></div>
+      </div>
+
+      <div id="heatmapDetail" class="heatmap-detail" hidden></div>
+
+      <div class="heatmap-footer">
+        <div id="heatmapSummary" class="heatmap-summary"></div>
+        <div class="heatmap-legend" aria-label="Heatmap intensity legend">
+          <span>Less</span>
+          <i class="heat-level heat-level-0"></i>
+          <i class="heat-level heat-level-1"></i>
+          <i class="heat-level heat-level-2"></i>
+          <i class="heat-level heat-level-3"></i>
+          <i class="heat-level heat-level-4"></i>
+          <span>More</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel progress-panel">
+      <h2>Habit progress</h2>
+      <p>See completion, streaks and whether each habit is on track. Month view also compares with the previous month.</p>
+      <div id="habitStats" class="habit-stat-list"></div>
+    </section>
+
+    <section class="summary-grid" aria-label="Visible period summary">
+      <article class="panel summary-card">
+        <div id="overallPct" class="summary-value">0%</div>
+        <div class="summary-label">Target completion so far</div>
+        <div id="overallComparison" class="summary-comparison" hidden></div>
+      </article>
+      <article class="panel summary-card">
+        <div id="completedCount" class="summary-value">0</div>
+        <div class="summary-label">Completed check-ins</div>
+      </article>
+      <article class="panel summary-card">
+        <div id="bestStreak" class="summary-value">0</div>
+        <div class="summary-label">Best streak</div>
+      </article>
+      <article class="panel summary-card">
+        <div id="habitCount" class="summary-value">0</div>
+        <div class="summary-label">Active habits</div>
+      </article>
+    </section>
+
+    <details class="panel data-panel">
+      <summary>Data &amp; backup</summary>
+      <div class="data-panel-body">
+        <div>
+          <h2>Keep your tracker safe</h2>
+          <p>Export a JSON backup before changing browser or device. JSON can be restored later; CSV is for analysis only.</p>
+        </div>
+
+        <div class="data-actions">
+          <button id="exportBtn" class="button primary" type="button">Backup JSON</button>
+          <button id="exportCsvBtn" class="button secondary" type="button">Export CSV</button>
+          <button id="importBtn" class="button secondary" type="button">Import JSON</button>
+          <input id="importFile" class="sr-only" type="file" accept="application/json,.json" />
+        </div>
+
+        <div class="data-divider"></div>
+
+        <div class="reset-row">
+          <div>
+            <h3>Reset options</h3>
+            <p>These actions cannot be undone unless you exported a backup first.</p>
+          </div>
+          <div class="data-actions">
+            <button id="resetMonthBtn" class="button secondary" type="button">Clear current month</button>
+            <button id="resetAllBtn" class="button danger-button" type="button">Reset all data</button>
+          </div>
+        </div>
+
+        <div id="dataMessage" class="form-message" aria-live="polite"></div>
+      </div>
+    </details>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
