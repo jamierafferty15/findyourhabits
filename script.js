@@ -54,7 +54,7 @@ const els = {
 function defaultState() {
   return {
     theme: 'light',
-    viewMode: 'month',
+    viewMode: 'week',
     habits: [
       { id: 'run', name: 'Run', targetType: 'weekly', weeklyTarget: 3 },
       { id: 'walk', name: 'Walk', targetType: 'daily', weeklyTarget: 7 },
@@ -119,10 +119,14 @@ function setShareSuccess(active) {
 }
 
 async function shareSite() {
+  const shareUrl = window.location.origin && window.location.origin !== 'null'
+    ? `${window.location.origin}${window.location.pathname}`
+    : window.location.href;
+
   const shareData = {
     title: 'FindYourHabits',
     text: 'Track habits, progress and consistency with FindYourHabits.',
-    url: window.location.href
+    url: shareUrl
   };
 
   try {
@@ -131,22 +135,49 @@ async function shareSite() {
       return;
     }
 
+    let copied = false;
+
     if (navigator.clipboard?.writeText) {
-      await navigator.clipboard.writeText(window.location.href);
+      await navigator.clipboard.writeText(shareUrl);
+      copied = true;
     } else {
       const input = document.createElement('input');
-      input.value = window.location.href;
+      input.value = shareUrl;
+      input.setAttribute('readonly', '');
+      input.style.position = 'fixed';
+      input.style.opacity = '0';
       document.body.appendChild(input);
       input.select();
-      document.execCommand('copy');
+      copied = document.execCommand('copy');
       input.remove();
     }
 
-    setShareSuccess(true);
-    window.setTimeout(() => setShareSuccess(false), 1600);
+    if (copied) {
+      setShareSuccess(true);
+      window.setTimeout(() => setShareSuccess(false), 1600);
+    }
   } catch (error) {
     if (error && error.name === 'AbortError') return;
-    console.error(error);
+
+    // Final fallback: copy using the legacy selection route.
+    try {
+      const input = document.createElement('input');
+      input.value = shareUrl;
+      input.setAttribute('readonly', '');
+      input.style.position = 'fixed';
+      input.style.opacity = '0';
+      document.body.appendChild(input);
+      input.select();
+      const copied = document.execCommand('copy');
+      input.remove();
+
+      if (copied) {
+        setShareSuccess(true);
+        window.setTimeout(() => setShareSuccess(false), 1600);
+      }
+    } catch (fallbackError) {
+      console.error(fallbackError);
+    }
   }
 }
 
@@ -1443,6 +1474,11 @@ els.habitForm.addEventListener('submit', event => {
   saveState();
   render();
 });
+
+
+if (els.shareBtn) {
+  els.shareBtn.addEventListener('click', shareSite);
+}
 
 els.themeToggle.addEventListener('click', () => {
   state.theme = state.theme === 'dark' ? 'light' : 'dark';
