@@ -17,8 +17,8 @@ const els = {
   habitCounter: document.getElementById('habitCounter'),
   starterHint: document.getElementById('starterHint'),
   editHabitsBtn: document.getElementById('editHabitsBtn'),
-  doneHabitsBtn: document.getElementById('doneHabitsBtn'),
   habitEditorArea: document.getElementById('habitEditorArea'),
+  mobileDoneSlot: document.getElementById('mobileDoneSlot'),
   habitEditorList: document.getElementById('habitEditorList'),
   habitForm: document.getElementById('habitForm'),
   habitInput: document.getElementById('habitInput'),
@@ -888,10 +888,25 @@ function makeTargetSelect(habit) {
   return select;
 }
 
+const editHabitsHome = els.editHabitsBtn.parentElement;
+
+function placeEditHabitsButton(open) {
+  const mobile = window.matchMedia('(max-width: 640px)').matches;
+  const target = open && mobile ? els.mobileDoneSlot : editHabitsHome;
+
+  if (els.editHabitsBtn.parentElement !== target) {
+    target.appendChild(els.editHabitsBtn);
+  }
+
+  els.editHabitsBtn.classList.toggle('mobile-editor-done-button', open && mobile);
+}
+
 function setEditorOpen(open, focusAdd = false) {
   els.habitEditorArea.hidden = !open;
   els.editHabitsBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
   els.editHabitsBtn.textContent = open ? 'Done' : 'Manage habits';
+  placeEditHabitsButton(open);
+
   if (open && focusAdd) {
     requestAnimationFrame(() => els.habitInput.focus());
   }
@@ -1447,10 +1462,10 @@ els.editHabitsBtn.addEventListener('click', () => {
   setEditorOpen(els.habitEditorArea.hidden);
 });
 
-els.doneHabitsBtn.addEventListener('click', () => {
-  setEditorOpen(false);
-  els.editHabitsBtn.focus();
+window.addEventListener('resize', () => {
+  placeEditHabitsButton(!els.habitEditorArea.hidden);
 });
+
 
 
 els.habitForm.addEventListener('submit', event => {

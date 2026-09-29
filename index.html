@@ -31,10 +31,10 @@
   <link rel="icon" type="image/svg+xml" href="icons/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=1.9.3" />
 </head>
 <body>
-  <!-- FindYourHabits v1.9.2 -->
+  <!-- FindYourHabits v1.9.3 -->
   <main class="app-shell">
     <section class="panel header-habits-panel top-dashboard-panel">
       <div class="header-panel compact-brand-row">
@@ -94,7 +94,7 @@
           <input id="habitInput" maxlength="22" placeholder="Add another habit, e.g. Read" />
           <button class="button primary" type="submit">＋ Add habit</button>
         </form>
-        <button id="doneHabitsBtn" class="button secondary mobile-editor-done" type="button">Done</button>
+        <div id="mobileDoneSlot" class="mobile-done-slot"></div>
         <div id="formMessage" class="form-message" aria-live="polite"></div>
 
         <div id="archivedHabitsArea" class="archived-habits-area" hidden>
@@ -212,7 +212,7 @@
     </details>
   </main>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=1.9.3"></script>
   <!-- Cloudflare Web Analytics -->
   <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "76a8667458e445cbbbcdd4d15a2771f6"}'></script>
   <!-- End Cloudflare Web Analytics -->

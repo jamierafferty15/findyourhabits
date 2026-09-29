@@ -1886,23 +1886,21 @@ body.dark #themeToggle::before {
 }
 
 
-/* v1.9.2 — clearer mobile habit-editing flow */
-.mobile-editor-done {
+
+/* v1.9.3 — one mobile Manage/Done control, moved beside Add habit while editing */
+.mobile-done-slot {
   display: none;
 }
 
 @media (max-width: 640px) {
-  .mobile-editor-done {
+  .mobile-done-slot {
     display: block;
-    width: 100%;
     margin-top: 8px;
-    min-height: 46px;
-    font-weight: 800;
   }
 
-  /* Once editing is open, use the nearby Done button instead of making
-     the user return to the top of the panel. */
-  #editHabitsBtn[aria-expanded="true"] {
-    display: none;
+  .mobile-editor-done-button {
+    width: 100%;
+    min-height: 46px;
+    font-weight: 800;
   }
 }
