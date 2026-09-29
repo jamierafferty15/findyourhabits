@@ -17,6 +17,7 @@ const els = {
   habitCounter: document.getElementById('habitCounter'),
   starterHint: document.getElementById('starterHint'),
   editHabitsBtn: document.getElementById('editHabitsBtn'),
+  doneHabitsBtn: document.getElementById('doneHabitsBtn'),
   habitEditorArea: document.getElementById('habitEditorArea'),
   habitEditorList: document.getElementById('habitEditorList'),
   habitForm: document.getElementById('habitForm'),
@@ -1444,6 +1445,11 @@ function render() {
 
 els.editHabitsBtn.addEventListener('click', () => {
   setEditorOpen(els.habitEditorArea.hidden);
+});
+
+els.doneHabitsBtn.addEventListener('click', () => {
+  setEditorOpen(false);
+  els.editHabitsBtn.focus();
 });
 
 

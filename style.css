@@ -1884,3 +1884,25 @@ body.dark #themeToggle::before {
     min-height: 36px;
   }
 }
+
+
+/* v1.9.2 — clearer mobile habit-editing flow */
+.mobile-editor-done {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .mobile-editor-done {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    min-height: 46px;
+    font-weight: 800;
+  }
+
+  /* Once editing is open, use the nearby Done button instead of making
+     the user return to the top of the panel. */
+  #editHabitsBtn[aria-expanded="true"] {
+    display: none;
+  }
+}
