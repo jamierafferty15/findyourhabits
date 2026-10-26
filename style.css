@@ -2211,3 +2211,144 @@ body.dark #themeToggle::before {
     padding-top: 20px;
   }
 }
+
+
+/* v1.9.7 — actual desktop redesign of About section */
+.feature-number,
+.about-note {
+  display: none;
+}
+
+@media (min-width: 721px) {
+  .about-panel {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .about-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 0;
+    align-items: stretch;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .about-title-block,
+  .about-intro-block {
+    padding: 30px 32px;
+  }
+
+  .about-title-block {
+    background: color-mix(in srgb, var(--accent-soft) 54%, var(--card));
+    border-right: 1px solid var(--border);
+  }
+
+  .about-title-block h2 {
+    margin: 8px 0 0;
+    max-width: 520px;
+    font-size: clamp(1.65rem, 2.3vw, 2.15rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+  }
+
+  .about-intro-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .about-intro-block p {
+    margin: 0;
+    max-width: 650px;
+    color: var(--muted);
+    font-size: 1.03rem;
+    line-height: 1.65;
+  }
+
+  .about-note {
+    display: inline-block;
+    margin-top: 14px;
+    color: var(--accent);
+    font-size: .82rem;
+    font-weight: 750;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    margin: 0;
+  }
+
+  .about-grid article {
+    min-height: 168px;
+    padding: 26px 28px 24px;
+    border: 0;
+    border-right: 1px solid var(--border);
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .about-grid article:last-child {
+    border-right: 0;
+  }
+
+  .feature-number {
+    display: block;
+    margin-bottom: 18px;
+    color: var(--accent);
+    font-size: .76rem;
+    font-weight: 850;
+    letter-spacing: .08em;
+  }
+
+  .about-grid h3 {
+    margin: 0 0 8px;
+    font-size: 1.08rem;
+  }
+
+  .about-grid p {
+    margin: 0;
+    max-width: 430px;
+    color: var(--muted);
+    font-size: .94rem;
+    line-height: 1.6;
+  }
+
+  .how-it-works {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 28px;
+    align-items: center;
+    margin: 0;
+    padding: 20px 28px;
+    border-top: 1px solid var(--border);
+    background: color-mix(in srgb, var(--card) 92%, var(--accent-soft));
+  }
+
+  .how-it-works h3 {
+    margin: 0;
+    font-size: .9rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+
+  .how-it-works p {
+    margin: 0;
+    font-size: .92rem;
+    line-height: 1.55;
+  }
+}
+
+/* Keep the compact phone presentation from v1.9.5 */
+@media (max-width: 720px) {
+  .about-title-block,
+  .about-intro-block {
+    padding: 0;
+  }
+
+  .about-note,
+  .feature-number {
+    display: none;
+  }
+}
