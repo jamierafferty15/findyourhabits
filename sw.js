@@ -1,4 +1,4 @@
-const CACHE_NAME = 'findyourhabits-v1.9.5';
+const CACHE_NAME = 'findyourhabits-v1.9.6';
 const APP_SHELL = [
   './',
   './index.html',
