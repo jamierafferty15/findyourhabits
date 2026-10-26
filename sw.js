@@ -1,7 +1,8 @@
-const CACHE_NAME = 'findyourhabits-v1.9.3';
+const CACHE_NAME = 'findyourhabits-v1.9.4';
 const APP_SHELL = [
   './',
   './index.html',
+  './privacy.html',
   './style.css',
   './script.js',
   './manifest.json',

@@ -31,10 +31,10 @@
   <link rel="icon" type="image/svg+xml" href="icons/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
-  <link rel="stylesheet" href="style.css?v=1.9.3" />
+  <link rel="stylesheet" href="style.css?v=1.9.4" />
 </head>
 <body>
-  <!-- FindYourHabits v1.9.3 -->
+  <!-- FindYourHabits v1.9.4 -->
   <main class="app-shell">
     <section class="panel header-habits-panel top-dashboard-panel">
       <div class="header-panel compact-brand-row">
@@ -84,7 +84,9 @@
         </div>
       </div>
 
-      <div id="starterHint" class="starter-hint" hidden>Starter examples are already set up. Use <strong>Manage habits</strong> to rename them, change targets or add your own.</div>
+      <div id="starterHint" class="starter-hint" hidden>
+        <strong>Start here:</strong> tap a day in the tracker to mark a habit complete. Use <strong>Manage habits</strong> to rename the starter habits, change targets or add your own.
+      </div>
 
       <div id="habitEditorArea" class="habit-editor-area" hidden>
         <div id="habitEditorList" class="habit-editor-list"></div>
@@ -179,6 +181,36 @@
       </article>
     </section>
 
+    <section id="about" class="panel about-panel" aria-labelledby="aboutTitle">
+      <div class="about-heading">
+        <div>
+          <span class="eyebrow">About FindYourHabits</span>
+          <h2 id="aboutTitle">A simple habit tracker built around consistency</h2>
+          <p>FindYourHabits helps you track everyday routines without turning them into a complicated productivity system.</p>
+        </div>
+      </div>
+
+      <div class="about-grid">
+        <article>
+          <h3>Flexible targets</h3>
+          <p>Track daily habits, weekdays, or a weekly target such as three runs per week.</p>
+        </article>
+        <article>
+          <h3>See your progress</h3>
+          <p>Use the weekly or monthly tracker, streaks and 12-month heatmap to spot patterns over time.</p>
+        </article>
+        <article>
+          <h3>Your habit data stays local</h3>
+          <p>Your habits and check-ins are stored in your browser on this device. Use the backup tools if you want to move or protect your data.</p>
+        </article>
+      </div>
+
+      <div class="how-it-works">
+        <h3>How it works</h3>
+        <p><strong>1.</strong> Set the habits that matter to you. <strong>2.</strong> Tap the tracker as you complete them. <strong>3.</strong> Use your progress and heatmap to build consistency over time.</p>
+      </div>
+    </section>
+
     <details class="panel data-panel">
       <summary>Data &amp; backup</summary>
       <div class="data-panel-body">
@@ -210,9 +242,17 @@
         <div id="dataMessage" class="form-message" aria-live="polite"></div>
       </div>
     </details>
+
+    <footer class="site-footer">
+      <p>FindYourHabits · Simple habit tracking, stored on your device.</p>
+      <nav aria-label="Site information">
+        <a href="#about">About</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+    </footer>
   </main>
 
-  <script src="script.js?v=1.9.3"></script>
+  <script src="script.js?v=1.9.4"></script>
   <!-- Cloudflare Web Analytics -->
   <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "76a8667458e445cbbbcdd4d15a2771f6"}'></script>
   <!-- End Cloudflare Web Analytics -->
